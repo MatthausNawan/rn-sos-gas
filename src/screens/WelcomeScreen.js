@@ -91,18 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStatetoProps = (state) => {
-  return {
-    name: state.userReducer.name,
-    email: state.userReducer.email,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setName: (name) => dispatch({type: 'SET_NAME', payload: {name}}),
-    setEmail: (email) => dispatch({type: 'SET_EMAIL', payload: {email}}),
-  };
-};
-
-export default connect(mapStatetoProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreen;

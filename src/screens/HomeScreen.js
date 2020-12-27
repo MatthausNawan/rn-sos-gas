@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {connect} from 'react-redux';
-import {useDispatch} from 'react-redux';
+
+import {useDispatch, useSelector} from 'react-redux';
 import {
   View,
   Text,
@@ -16,14 +16,28 @@ import {TextInputMask} from 'react-native-masked-text';
 const HomeScreen = (props) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [cpf, setCpf] = useState(props.cpf || '');
-  const [name, setName] = useState(props.name || '');
-  const [fullName, setFullName] = useState(props.fullName || '');
-  const [rg, setRG] = useState(props.rg || '');
-  const [mesAno, setMesAno] = useState(props.aniversario || '');
+
+  const profile = useSelector((state) => state.user.profile);
+
+  const [cpf, setCpf] = useState(profile.cpf || '');
+  const [name, setName] = useState(profile.name || '');
+  const [fullName, setFullName] = useState(profile.fullName || '');
+  const [rg, setRG] = useState(profile.rg || '');
+  const [aniversario, setAniversario] = useState(profile.aniversario || '');
+  const [telefone, setTelefone] = useState(profile.telefone || '');
 
   const handleGoToStep2 = () => {
-    dispatch({type: 'SAVE_USER', payload: {cpf, name, fullName, rg, mesAno}});
+    dispatch({
+      type: 'SAVE_USER',
+      payload: {
+        cpf,
+        name,
+        fullName,
+        rg,
+        aniversario,
+        telefone,
+      },
+    });
     navigation.navigate('Address');
   };
 
@@ -77,8 +91,18 @@ const HomeScreen = (props) => {
                 format: 'DD/MM/YYYY',
               }}
               type="datetime"
-              value={mesAno}
-              onChangeText={(txt) => setMesAno(txt)}
+              value={aniversario}
+              onChangeText={(txt) => setAniversario(txt)}
+            />
+          </View>
+
+          <View style={styles.formInput}>
+            <Text style={styles.labelInput}>Telefone</Text>
+            <TextInputMask
+              style={styles.input}
+              type="cel-phone"
+              value={telefone}
+              onChangeText={(txt) => setTelefone(txt)}
             />
           </View>
           <TouchableOpacity style={styles.button} onPress={handleGoToStep2}>
@@ -136,23 +160,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStatetoProps = (state) => {
-  console.log(state);
-  return {
-    name: state.userReducer.user.name,
-    email: state.userReducer.user.email,
-    cpf: state.userReducer.user.cpf,
-    rg: state.userReducer.user.rg,
-    aniversario: state.userReducer.user.aniversario,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateUser: (user) => dispatch({type: 'SAVE_USER', payload: user}),
-    // setEmail: (email) => dispatch({type: 'SET_EMAIL', payload: {email}}),
-    // setCpf: (cpf) => dispatch({type: 'SET_CPF', payload: {cpf}}),
-  };
-};
-
-export default connect(mapStatetoProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreen;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {
   View,
   Text,
@@ -11,15 +11,40 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-const AddressScreen = (props) => {
-  const [condominiumName, setCondominiunName] = useState('');
-  const navigation = useNavigation();
-  const handleGoToStep3 = () => {
-    navigation.navigate('Imovel');
+const AddressScreen = () => {
+  const dispatch = useDispatch();
 
-    console.log('dados do reducer');
-    console.log(props);
+  const condominio = useSelector((state) => state.user.condominio);
+
+  const [name, setName] = useState(condominio.name || '');
+  const [apto, setApto] = useState(condominio.apto || '');
+  const [bloco, setBloco] = useState(condominio.bloco || '');
+  const [cep, setCep] = useState(condominio.cep || '');
+  const [rua, setRua] = useState(condominio.rua || '');
+  const [cidade, setCidade] = useState(condominio.cidade || '');
+  const [bairro, setBairro] = useState(condominio.bairro || '');
+  const [estado, setEstado] = useState(condominio.estado || '');
+
+  const navigation = useNavigation();
+
+  const handleGoToStep3 = () => {
+    dispatch({
+      type: 'SAVE_CONDOMINIUM',
+      payload: {
+        name,
+        apto,
+        bloco,
+        cep,
+        rua,
+        cidade,
+        bairro,
+        estado,
+      },
+    });
+
+    navigation.navigate('Imovel');
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -30,26 +55,42 @@ const AddressScreen = (props) => {
           <View style={styles.formInput}>
             <Text style={styles.labelInput}>Nome do Condomínio</Text>
             <TextInput
-              value={condominiumName}
-              onChangeText={(txt) => setCondominiunName(txt)}
+              value={name}
+              onChangeText={(txt) => setName(txt)}
               style={styles.input}
             />
           </View>
           <View style={styles.formInput}>
             <Text style={styles.labelInput}>Apto</Text>
-            <TextInput style={styles.input} />
+            <TextInput
+              style={styles.input}
+              value={apto}
+              onChangeText={(txt) => setApto(txt)}
+            />
           </View>
           <View style={styles.formInput}>
             <Text style={styles.labelInput}>Bloco</Text>
-            <TextInput style={styles.input} />
+            <TextInput
+              style={styles.input}
+              value={bloco}
+              onChangeText={(txt) => setBloco(txt)}
+            />
           </View>
           <View style={styles.formInput}>
             <Text style={styles.labelInput}>Cep</Text>
-            <TextInput style={styles.input} />
+            <TextInput
+              style={styles.input}
+              value={cep}
+              onChangeText={(txt) => setCep(txt)}
+            />
           </View>
           <View style={styles.formInput}>
             <Text style={styles.labelInput}>Rua</Text>
-            <TextInput style={styles.input} placeholder="" />
+            <TextInput
+              style={styles.input}
+              value={rua}
+              onChangeText={(txt) => setRua(txt)}
+            />
           </View>
 
           <TouchableOpacity style={styles.button} onPress={handleGoToStep3}>
@@ -107,18 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStatetoProps = (state) => {
-  return {
-    name: state.userReducer.name,
-    email: state.userReducer.email,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // setName: (name) => dispatch({type:"SET_NAME",payload:{name}}),
-    // setName: (email) => dispatch({type:"SET_EMAIL",payload:{email}})
-  };
-};
-
-export default connect(mapStatetoProps, mapDispatchToProps)(AddressScreen);
+export default AddressScreen;
