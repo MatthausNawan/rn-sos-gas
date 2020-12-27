@@ -8,17 +8,27 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import axios from 'axios';
 
 const ImovelScreen = () => {
+  const URL = 'http://localhost:8000/api/contracts';
   const profile = useSelector((state) => state.user.profile);
   const condominio = useSelector((state) => state.user.condominio);
 
   const [loading, setLoading] = useState(false);
 
-  const handleSendData = () => {
-    setLoading(!loading);
+  const handleSendData = async () => {
+    setLoading(true);
+
+    const response = await axios.post(URL, {
+      name: profile.name,
+      cpf: profile.cpf,
+    });
+
+    console.log(response.data);
+    setLoading(false);
   };
   return (
     <SafeAreaView style={styles.container}>
