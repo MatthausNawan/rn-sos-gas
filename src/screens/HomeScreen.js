@@ -46,69 +46,78 @@ const HomeScreen = (props) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>1. Informe seus Dados</Text>
       </View>
-      <ScrollView>
-        <View style={styles.page}>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Como podemos te chamar?</Text>
-            <TextInput
-              value={name}
-              onChangeText={(txt) => setName(txt)}
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Nome completo</Text>
-            <TextInput
-              style={styles.input}
-              value={fullName}
-              onChangeText={(txt) => setFullName(txt)}
-            />
-          </View>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>CPF</Text>
-            <TextInputMask
-              type="cpf"
-              value={cpf}
-              onChangeText={(txt) => setCpf(txt)}
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>RG</Text>
-            <TextInputMask
-              type="only-numbers"
-              value={rg}
-              style={styles.input}
-              onChangeText={(text) => setRG(text)}
-            />
-          </View>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Dia/Mês do seu Aniversário</Text>
-            <TextInputMask
-              style={styles.input}
-              placeholder="DD/MM/AAAA"
-              options={{
-                format: 'DD/MM/YYYY',
-              }}
-              type="datetime"
-              value={aniversario}
-              onChangeText={(txt) => setAniversario(txt)}
-            />
-          </View>
-
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Telefone</Text>
-            <TextInputMask
-              style={styles.input}
-              type="cel-phone"
-              value={telefone}
-              onChangeText={(txt) => setTelefone(txt)}
-            />
-          </View>
-          <TouchableOpacity style={styles.button} onPress={handleGoToStep2}>
-            <Text style={styles.textButton}>Continuar</Text>
-          </TouchableOpacity>
+      <ScrollView style={styles.page}>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Como podemos te chamar?</Text>
+          <TextInput
+            value={name}
+            onChangeText={(txt) => setName(txt)}
+            style={styles.input}
+          />
         </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Nome completo</Text>
+          <TextInput
+            style={styles.input}
+            value={fullName}
+            onChangeText={(txt) => setFullName(txt)}
+          />
+        </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>CPF</Text>
+          <TextInputMask
+            type="cpf"
+            value={cpf}
+            onChangeText={(txt) => setCpf(txt)}
+            style={styles.input}
+          />
+        </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>RG</Text>
+          <TextInputMask
+            placeholder="Apenas Números"
+            maxLength={7}
+            type="only-numbers"
+            value={rg}
+            style={styles.input}
+            onChangeText={(text) => setRG(text)}
+          />
+        </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Data de Nascimento</Text>
+          <TextInputMask
+            style={styles.input}
+            placeholder="DD/MM/AAAA"
+            options={{
+              format: 'DD/MM/YYYY',
+            }}
+            type="datetime"
+            value={aniversario}
+            onChangeText={(txt) => setAniversario(txt)}
+          />
+        </View>
+
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Telefone</Text>
+          <TextInputMask
+            style={styles.input}
+            type="cel-phone"
+            value={telefone}
+            onChangeText={(txt) => setTelefone(txt)}
+          />
+        </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Telefone Móvel</Text>
+          <TextInputMask
+            style={styles.input}
+            type="cel-phone"
+            value={telefone}
+            onChangeText={(txt) => setTelefone(txt)}
+          />
+        </View>
+        <TouchableOpacity style={styles.button} onPress={handleGoToStep2}>
+          <Text style={styles.textButton}>Continuar</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -117,38 +126,36 @@ const HomeScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    paddingHorizontal: 10,
   },
   page: {
-    flex: 1,
-    marginTop: 80,
-    marginHorizontal: 20,
+    marginTop: 20,
   },
   headerText: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: '#999',
   },
   input: {
-    width: 350,
-    height: 50,
-    padding: 10,
+    height: 40,
     fontSize: 15,
     marginTop: 5,
     borderColor: '#445a68',
     borderStyle: 'solid',
-    borderWidth: 2,
-    borderRadius: 15,
+    borderWidth: 1,
+    borderRadius: 5,
     color: '#FF0000',
   },
   labelInput: {
-    fontSize: 20,
+    fontSize: 18,
+    color: '#999',
   },
   formInput: {
-    marginTop: 10,
     flex: 1,
+    marginTop: 5,
   },
   button: {
-    marginTop: 5,
+    marginTop: 10,
     backgroundColor: '#445a68',
     padding: 20,
     borderRadius: 15,
@@ -156,7 +163,8 @@ const styles = StyleSheet.create({
   textButton: {
     color: '#fff',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 16,
+    textTransform: 'uppercase',
   },
 });
 

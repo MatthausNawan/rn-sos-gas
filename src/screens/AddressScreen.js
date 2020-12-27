@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {TextInputMask} from 'react-native-masked-text';
 
 const AddressScreen = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const AddressScreen = () => {
   const [cidade, setCidade] = useState(condominio.cidade || '');
   const [bairro, setBairro] = useState(condominio.bairro || '');
   const [estado, setEstado] = useState(condominio.estado || '');
+  const [numero, setNumero] = useState(condominio.numero || '');
 
   const navigation = useNavigation();
 
@@ -48,55 +50,82 @@ const AddressScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>2. Informe Endereço</Text>
+        <Text style={styles.headerText}>2. Dados do Condominio</Text>
       </View>
-      <ScrollView>
-        <View style={styles.page}>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Nome do Condomínio</Text>
-            <TextInput
-              value={name}
-              onChangeText={(txt) => setName(txt)}
-              style={styles.input}
-            />
-          </View>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Apto</Text>
-            <TextInput
-              style={styles.input}
-              value={apto}
-              onChangeText={(txt) => setApto(txt)}
-            />
-          </View>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Bloco</Text>
-            <TextInput
-              style={styles.input}
-              value={bloco}
-              onChangeText={(txt) => setBloco(txt)}
-            />
-          </View>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Cep</Text>
-            <TextInput
-              style={styles.input}
-              value={cep}
-              onChangeText={(txt) => setCep(txt)}
-            />
-          </View>
-          <View style={styles.formInput}>
-            <Text style={styles.labelInput}>Rua</Text>
-            <TextInput
-              style={styles.input}
-              value={rua}
-              onChangeText={(txt) => setRua(txt)}
-            />
-          </View>
-
-          <TouchableOpacity style={styles.button} onPress={handleGoToStep3}>
-            <Text style={styles.textButton}>Continuar</Text>
-          </TouchableOpacity>
+      <ScrollView style={styles.page}>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Nome do Condomínio</Text>
+          <TextInput
+            value={name}
+            onChangeText={(txt) => setName(txt)}
+            style={styles.input}
+          />
         </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Apto</Text>
+          <TextInput
+            style={styles.input}
+            value={apto}
+            onChangeText={(txt) => setApto(txt)}
+          />
+        </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Bloco</Text>
+          <TextInput
+            placeholder="Deixe em branco se não tiver"
+            style={styles.input}
+            value={bloco}
+            onChangeText={(txt) => setBloco(txt)}
+          />
+        </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Cep</Text>
+          <TextInputMask
+            type="zip-code"
+            style={styles.input}
+            value={cep}
+            onChangeText={(txt) => setCep(txt)}
+          />
+        </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Rua</Text>
+          <TextInput
+            style={styles.input}
+            value={rua}
+            onChangeText={(txt) => setRua(txt)}
+          />
+        </View>
+
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Número</Text>
+          <TextInput
+            style={styles.input}
+            value={numero}
+            onChangeText={(txt) => setNumero(txt)}
+          />
+        </View>
+
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Cidade</Text>
+          <TextInput
+            style={styles.input}
+            value={cidade}
+            onChangeText={(txt) => setCidade(txt)}
+          />
+        </View>
+
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Bairro</Text>
+          <TextInput
+            style={styles.input}
+            value={bairro}
+            onChangeText={(txt) => setBairro(txt)}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={handleGoToStep3}>
+          <Text style={styles.textButton}>Continuar</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
@@ -105,38 +134,36 @@ const AddressScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    paddingHorizontal: 10,
   },
   page: {
-    flex: 1,
-    marginTop: 80,
-    marginHorizontal: 20,
+    marginTop: 20,
   },
   headerText: {
     fontSize: 30,
     fontWeight: 'bold',
+    color: '#999',
   },
   input: {
-    width: 350,
-    height: 50,
-    padding: 10,
+    height: 40,
     fontSize: 15,
     marginTop: 5,
     borderColor: '#445a68',
     borderStyle: 'solid',
-    borderWidth: 2,
-    borderRadius: 15,
+    borderWidth: 1,
+    borderRadius: 5,
     color: '#FF0000',
   },
   labelInput: {
-    fontSize: 20,
+    fontSize: 18,
+    color: '#999',
   },
   formInput: {
-    marginTop: 10,
     flex: 1,
+    marginTop: 5,
   },
   button: {
-    marginTop: 5,
+    marginTop: 10,
     backgroundColor: '#445a68',
     padding: 20,
     borderRadius: 15,
@@ -144,7 +171,8 @@ const styles = StyleSheet.create({
   textButton: {
     color: '#fff',
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 16,
+    textTransform: 'uppercase',
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+
 import {
   View,
   Text,
@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Linking,
-  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -30,9 +29,7 @@ const HomeScreen = () => {
         <View style={styles.header}>
           <Image resizeMode="stretch" source={Logo} style={styles.logo} />
           <Text style={styles.text}>Bem Vindo, A SOS Gás</Text>
-          <Text style={styles.text}>
-            Selecione uma opção tocando em uma das opções
-          </Text>
+          <Text style={styles.text}>Toque na opção desejada.</Text>
         </View>
         <View style={styles.buttons}>
           <TouchableOpacity style={styles.button} onPress={handleGoToStep1}>
@@ -73,7 +70,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#999',
   },
   textButton: {
     color: '#fff',
