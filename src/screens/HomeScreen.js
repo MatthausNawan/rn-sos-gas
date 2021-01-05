@@ -21,24 +21,33 @@ const HomeScreen = (props) => {
 
   const [cpf, setCpf] = useState(profile.cpf || '');
   const [name, setName] = useState(profile.name || '');
+  const [email, setEmail] = useState(profile.email || '');
   const [fullName, setFullName] = useState(profile.fullName || '');
   const [rg, setRG] = useState(profile.rg || '');
   const [aniversario, setAniversario] = useState(profile.aniversario || '');
   const [telefone, setTelefone] = useState(profile.telefone || '');
 
   const handleGoToStep2 = () => {
-    dispatch({
-      type: 'SAVE_USER',
-      payload: {
-        cpf,
-        name,
-        fullName,
-        rg,
-        aniversario,
-        telefone,
-      },
-    });
-    navigation.navigate('Address');
+    
+    if(cpf != '' && name != '' && fullName != '' && rg != '' && aniversario != '' && telefone != ''){
+      dispatch({
+        type: 'SAVE_USER',
+        payload: {
+          cpf,
+          name,
+          email,
+          fullName,
+          rg,
+          aniversario,
+          telefone,
+        },
+      });
+      navigation.navigate('Address');
+    }else{
+      alert('Preencha todos os campos!');
+     
+    }
+    
   };
 
   return (
@@ -61,6 +70,15 @@ const HomeScreen = (props) => {
             style={styles.input}
             value={fullName}
             onChangeText={(txt) => setFullName(txt)}
+          />
+        </View>
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Seu melhor e-mail?</Text>
+          <TextInput
+            keyboardType="email-address"
+            value={email}
+            onChangeText={(txt) => setEmail(txt)}
+            style={styles.input}
           />
         </View>
         <View style={styles.formInput}>
@@ -105,16 +123,7 @@ const HomeScreen = (props) => {
             value={telefone}
             onChangeText={(txt) => setTelefone(txt)}
           />
-        </View>
-        <View style={styles.formInput}>
-          <Text style={styles.labelInput}>Telefone Móvel</Text>
-          <TextInputMask
-            style={styles.input}
-            type="cel-phone"
-            value={telefone}
-            onChangeText={(txt) => setTelefone(txt)}
-          />
-        </View>
+        </View>        
         <TouchableOpacity style={styles.button} onPress={handleGoToStep2}>
           <Text style={styles.textButton}>Continuar</Text>
         </TouchableOpacity>

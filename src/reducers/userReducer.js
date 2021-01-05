@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     rg: '',
     aniversario: '',
     telefone: '',
+    email:''
   },
   condominio: {
     name: '',

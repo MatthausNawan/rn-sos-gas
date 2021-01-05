@@ -30,21 +30,29 @@ const AddressScreen = () => {
   const navigation = useNavigation();
 
   const handleGoToStep3 = () => {
-    dispatch({
-      type: 'SAVE_CONDOMINIUM',
-      payload: {
-        name,
-        apto,
-        bloco,
-        cep,
-        rua,
-        cidade,
-        bairro,
-        estado,
-      },
-    });
 
-    navigation.navigate('Imovel');
+    if(name != '' && apto != '' && cep != '' && rua != '' && cidade != '' && bairro != '' && estado != '' && numero != '')
+    {
+      dispatch({
+        type: 'SAVE_CONDOMINIUM',
+        payload: {
+          name,
+          apto,
+          bloco,
+          cep,
+          rua,
+          cidade,
+          bairro,
+          estado,
+          numero
+        },
+      });
+  
+      navigation.navigate('Imovel');
+    }else{
+      alert('Por favor, preencha todos os campos!')
+    }
+    
   };
 
   return (
@@ -120,6 +128,15 @@ const AddressScreen = () => {
             style={styles.input}
             value={bairro}
             onChangeText={(txt) => setBairro(txt)}
+          />
+        </View>
+
+        <View style={styles.formInput}>
+          <Text style={styles.labelInput}>Estado</Text>
+          <TextInput
+            style={styles.input}
+            value={estado}
+            onChangeText={(txt) => setEstado(txt)}
           />
         </View>
 

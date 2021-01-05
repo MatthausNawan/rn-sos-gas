@@ -40,9 +40,9 @@ const HomeScreen = () => {
               Visualizar Minuta do Contrato
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
+          {/* <TouchableOpacity style={styles.button}>
             <Text style={styles.textButton}>Consultar Contrato</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </SafeAreaView>

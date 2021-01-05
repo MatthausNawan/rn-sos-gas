@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useSelector} from 'react-redux';
+import { useNavigation } from '@react-navigation/native'
 
 import {
   View,
@@ -18,26 +19,42 @@ const ImovelScreen = () => {
   const condominio = useSelector((state) => state.user.condominio);
 
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
   const handleSendData = async () => {
     setLoading(true);
 
-    const response = await axios.post(URL, {
+    const data =  {
+      email:profile.email,
       first_name: profile.name,
       last_name: profile.fullName,
       ssn: profile.cpf,
       register: profile.rg,
-      birht_date: profile.aniversario,
+      birth_date: profile.aniversario,
       mobile: profile.telefone,
       zipcode: condominio.cep,
       condominium_name: condominio.name,
-      condominium_block: condominio.block,
+      condominium_block: condominio.bloco,
       condominium_apto: condominio.apto,
       address_1: condominio.rua,
-    });
+      address_number:condominio.numero,
+      province:condominio.bairro,
+      city:condominio.cidade,
+      state:condominio.estado
+    }; 
+    console.log(data);   
+    const response = await axios.post(URL,data);
 
-    console.log(response.status);
+    
+    if(response.data.success){
+      alert("Obrigado pelo Cadastro, enviaremos um email de confirmação")
+      
+    }else{
+      alert(`Erro: ${response.data.message}` )
+    }
+
     setLoading(false);
+    navigation.navigate('Welcome');
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -96,6 +113,7 @@ const ImovelScreen = () => {
           <Text style={styles.text}>{condominio.rua}</Text>
           <Text style={styles.text}>{condominio.bairro}</Text>
           <Text style={styles.text}>{condominio.cidade}</Text>
+          <Text style={styles.text}>{condominio.numero}</Text>
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleSendData}>
