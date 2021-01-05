@@ -29,7 +29,7 @@ const HomeScreen = (props) => {
 
   const handleGoToStep2 = () => {
     
-    if(cpf != '' && name != '' && fullName != '' && rg != '' && aniversario != '' && telefone != ''){
+    if(cpf != '' && name != '' && fullName != '' && rg != '' && aniversario != '' && telefone != '' && email != ''){
       dispatch({
         type: 'SAVE_USER',
         payload: {
@@ -44,8 +44,7 @@ const HomeScreen = (props) => {
       });
       navigation.navigate('Address');
     }else{
-      alert('Preencha todos os campos!');
-     
+      alert('Preencha todos os campos!');     
     }
     
   };
