@@ -65,7 +65,7 @@ const HomeScreen = (props) => {
         </View>
         <View style={styles.formInput}>
           <Text style={styles.labelInput}>Nome completo</Text>
-          <TextInput
+          <TextInput          
             style={styles.input}
             value={fullName}
             onChangeText={(txt) => setFullName(txt)}

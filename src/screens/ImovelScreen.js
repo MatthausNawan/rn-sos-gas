@@ -14,7 +14,7 @@ import {
 import axios from 'axios';
 
 const ImovelScreen = () => {
-  const URL = 'http://192.168.0.5:8000/api/contracts';
+  const URL = 'http://app.grupososgas.com.br/api/contracts';
   const profile = useSelector((state) => state.user.profile);
   const condominio = useSelector((state) => state.user.condominio);
 
@@ -31,7 +31,7 @@ const ImovelScreen = () => {
       ssn: profile.cpf,
       register: profile.rg,
       birth_date: profile.aniversario,
-      mobile: profile.telefone,
+      phone: profile.telefone,
       zipcode: condominio.cep,
       condominium_name: condominio.name,
       condominium_block: condominio.bloco,
